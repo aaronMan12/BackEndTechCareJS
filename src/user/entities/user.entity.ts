@@ -6,12 +6,15 @@ export class User {
     @PrimaryGeneratedColumn()
     id_user: number ;
 
-    @Column()
+    @Column({length: 50, nullable: false})
     nombre: string;
 
-    @Column()
-    contrasena : string;
+    @Column({
+        length: 8, nullable: false})
+    contrasena : string  ;
 
-    @Column() 
+    @Column({type: 'enum', 
+            enum: ['admin', 'tecnico'],
+            nullable: false}) 
     roll: string;
 }

@@ -24,11 +24,13 @@ export class UserService {
   }
 
   async loging(nombre: string, contrasena: string) {
-    let loging = await this.userRepository.findOne({where: {nombre: nombre, contrasena: contrasena}});
+    let loging = await this.userRepository.findOne({where: {nombre: nombre, contrasena: contrasena},
+        select: ["nombre", "roll"]
+    });
     if (loging == null) {
-      return 'contrasena o nombre incorrecto'
+      return false;
     }
-    return await this.userRepository.findOne({where: {nombre: nombre, contrasena: contrasena}});
+    return loging;
   }
 
   findOne(id: number) {
