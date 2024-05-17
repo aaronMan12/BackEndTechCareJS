@@ -6,6 +6,8 @@ import { UserModule } from './user/user.module';
 import { User } from './user/entities/user.entity';
 import { OrdenServicioModule } from './orden-servicio/orden-servicio.module';
 import { OrdenServicio } from './orden-servicio/entities/orden-servicio.entity';
+import { EquipoModule } from './equipo/equipo.module';
+import { Equipo } from './equipo/entities/equipo.entity';
 
 @Module({
   imports: [
@@ -16,11 +18,12 @@ import { OrdenServicio } from './orden-servicio/entities/orden-servicio.entity';
       username: 'tcuser',
       password: 'QWERTY',
       database: 'techcare',
-      entities: [User,OrdenServicio],
+      entities: [User,OrdenServicio,Equipo],
       synchronize: true,
     }),
     UserModule,
     OrdenServicioModule,
+    EquipoModule,
   ],
   controllers: [AppController],
   providers: [AppService],

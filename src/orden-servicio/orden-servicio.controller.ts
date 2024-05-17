@@ -12,6 +12,11 @@ export class OrdenServicioController {
     return this.ordenServicioService.create(createOrdenServicioDto);
   }
 
+  @Post('/nuevaordendeservicio')
+  async nuevaOrdenDeServicio(@Body() createOrdenServicioDto: CreateOrdenServicioDto) {
+    return await this.ordenServicioService.create(createOrdenServicioDto);
+  }
+
   @Get()
   findAll() {
     return this.ordenServicioService.findAll();
