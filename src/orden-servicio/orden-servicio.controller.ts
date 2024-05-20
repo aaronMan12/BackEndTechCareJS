@@ -3,7 +3,7 @@ import { OrdenServicioService } from './orden-servicio.service';
 import { CreateOrdenServicioDto } from './dto/create-orden-servicio.dto';
 import { UpdateOrdenServicioDto } from './dto/update-orden-servicio.dto';
 
-@Controller('orden-servicio')
+@Controller('/api/orden_servicio/')
 export class OrdenServicioController {
   constructor(private readonly ordenServicioService: OrdenServicioService) {}
 
@@ -12,7 +12,7 @@ export class OrdenServicioController {
     return this.ordenServicioService.create(createOrdenServicioDto);
   }
 
-  @Post('/nuevaordendeservicio')
+  @Post('nuevaordendeservicio')
   async nuevaOrdenDeServicio(@Body() createOrdenServicioDto: CreateOrdenServicioDto) {
     return await this.ordenServicioService.create(createOrdenServicioDto);
   }

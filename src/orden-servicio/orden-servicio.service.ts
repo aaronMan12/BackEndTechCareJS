@@ -1,11 +1,27 @@
 import { Injectable } from '@nestjs/common';
 import { CreateOrdenServicioDto } from './dto/create-orden-servicio.dto';
 import { UpdateOrdenServicioDto } from './dto/update-orden-servicio.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { OrdenServicio } from './entities/orden-servicio.entity';
+import { Repository } from 'typeorm';
+import { response } from 'express';
 
 @Injectable()
 export class OrdenServicioService {
-  create(createOrdenServicioDto: CreateOrdenServicioDto) {
-    return 'This action adds a new ordenServicio';
+  constructor(
+    @InjectRepository(OrdenServicio)
+    private ordenServicioRepository: Repository<OrdenServicio>
+  ) {
+    
+  }
+
+  async create(createOrdenServicioDto: CreateOrdenServicioDto) {
+    const nuevaOrdenServicio = this.ordenServicioRepository.create(createOrdenServicioDto);
+    if (nuevaOrdenServicio!=null) {
+    return await nuevaOrdenServicio;
+  }else{
+    return response.status(404).json({message:"No se pudo crear la orden de servicio"});
+  }
   }
 
   findAll() {

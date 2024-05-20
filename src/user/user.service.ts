@@ -4,6 +4,8 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
+import { response } from 'express';
+import { STATUS_CODES } from 'http';
 
 @Injectable()
 export class UserService {
@@ -27,10 +29,11 @@ export class UserService {
     let loging = await this.userRepository.findOne({where: {nombre: nombre, contrasena: contrasena},
         select: ["nombre", "roll"]
     });
-    if (loging == null) {
-      return false;
-    }
-    return loging;
+    if (!loging) { 
+      return { error: "No se encontró el usuario"};
+  }
+  
+  return loging;
   }
 
   findOne(id: number) {

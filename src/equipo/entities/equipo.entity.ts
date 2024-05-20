@@ -12,12 +12,12 @@ export class Equipo {
     @Column({length: 50, nullable: false})
     modelo: string;
   
-    @Column({type: 'enum', enum: ['Escritorio', 'laptop', 'consola'], nullable: false})
+    @Column({type: 'enum', enum: ['escritorio', 'laptop', 'consola'], nullable: false})
     tipo_de_dispositivo: String;
 
     @Column({length: 250, nullable: false})
     estado_fisico: string;
 
     @Column({nullable: false})
-    cargador: Boolean
+    cargador: Boolean;
 }

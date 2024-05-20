@@ -4,6 +4,7 @@ import { UpdateEquipoDto } from './dto/update-equipo.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Equipo } from './entities/equipo.entity';
+import { response } from 'express';
 
 @Injectable()
 export class EquipoService {
@@ -13,8 +14,16 @@ export class EquipoService {
   ){}
   
   async create(createEquipoDto: CreateEquipoDto) {
-    //const partialEquipo: Partial<Equipo> = createEquipoDto;
-    return await this.equipoRepository.save(createEquipoDto);
+    const noSerie = createEquipoDto.numero_de_serie;
+    const nuevoEquipo = this.equipoRepository.save(createEquipoDto);
+   
+    if (nuevoEquipo != null) {
+      
+      return (await nuevoEquipo).numero_de_serie
+    }else{
+      return response.status(400).json({message: 'Error al crear el equipo'})
+    }
+    
   }
 
   findAll() {

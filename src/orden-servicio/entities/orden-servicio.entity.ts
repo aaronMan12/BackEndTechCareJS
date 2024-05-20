@@ -16,6 +16,12 @@ export class OrdenServicio {
     @Column({ length: 200, nullable: false })
     presupuesto: string;
 
+    @Column({ nullable: false })
+    monto_total: number;
+
+    @Column({ nullable: false })
+    anticipo: number;
+
     @Column({ length: 50, nullable: false })
     nombre_Cliente: string;
 

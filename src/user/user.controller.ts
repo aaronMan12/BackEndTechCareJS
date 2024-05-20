@@ -22,8 +22,10 @@ export class UserController {
     return this.userService.findOne(+id);
   }
 
-  @Get('/loging/:nombre/:contrasena')
-  loging(@Param('nombre') nombre: string, @Param('contrasena') contrasena: string) {
+  @Post('/loging')
+  loging(@Body() selectUser: CreateUserDto) {
+    let nombre = selectUser.nombre;
+    let contrasena = selectUser.contrasena;
     return this.userService.loging(nombre, contrasena);
   }
 
