@@ -16,7 +16,7 @@ export class OrdenServicioService {
   }
 
   async create(createOrdenServicioDto: CreateOrdenServicioDto) {
-    const nuevaOrdenServicio = this.ordenServicioRepository.create(createOrdenServicioDto);
+    const nuevaOrdenServicio = this.ordenServicioRepository.save(createOrdenServicioDto);
     if (nuevaOrdenServicio!=null) {
     return await nuevaOrdenServicio;
   }else{

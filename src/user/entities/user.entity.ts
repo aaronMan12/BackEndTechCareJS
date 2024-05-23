@@ -10,7 +10,7 @@ export class User {
     nombre: string;
 
     @Column({
-        length: 8, nullable: false})
+        length: 8, nullable: true})
     contrasena : string  ;
 
     @Column({type: 'enum', 
