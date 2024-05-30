@@ -9,6 +9,7 @@ import { OrdenServicio } from './orden-servicio/entities/orden-servicio.entity';
 import { EquipoModule } from './equipo/equipo.module';
 import { Equipo } from './equipo/entities/equipo.entity';
 import { JwtStrategy } from './user/jwt.strategy';
+import { WebSocket } from './WebSocket';
 
 @Module({
   imports: [
@@ -19,7 +20,7 @@ import { JwtStrategy } from './user/jwt.strategy';
       username: 'tcuser',
       password: 'QWERTY',
       database: 'techcare',
-      entities: [User,OrdenServicio,Equipo],
+      entities: [User, OrdenServicio, Equipo],
       synchronize: true,
     }),
     UserModule,
@@ -27,6 +28,6 @@ import { JwtStrategy } from './user/jwt.strategy';
     EquipoModule,
   ],
   controllers: [AppController],
-  providers: [AppService, JwtStrategy],
+  providers: [AppService, JwtStrategy, WebSocket],
 })
-export class AppModule {}
+export class AppModule { }
