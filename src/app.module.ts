@@ -8,6 +8,7 @@ import { OrdenServicioModule } from './orden-servicio/orden-servicio.module';
 import { OrdenServicio } from './orden-servicio/entities/orden-servicio.entity';
 import { EquipoModule } from './equipo/equipo.module';
 import { Equipo } from './equipo/entities/equipo.entity';
+import { JwtStrategy } from './user/jwt.strategy';
 
 @Module({
   imports: [
@@ -26,6 +27,6 @@ import { Equipo } from './equipo/entities/equipo.entity';
     EquipoModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, JwtStrategy],
 })
 export class AppModule {}

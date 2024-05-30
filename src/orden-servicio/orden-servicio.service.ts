@@ -1,10 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { CreateOrdenServicioDto } from './dto/create-orden-servicio.dto';
 import { UpdateOrdenServicioDto } from './dto/update-orden-servicio.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { OrdenServicio } from './entities/orden-servicio.entity';
 import { Repository } from 'typeorm';
 import { response } from 'express';
+import { count } from 'console';
 
 @Injectable()
 export class OrdenServicioService {
@@ -16,24 +17,48 @@ export class OrdenServicioService {
   }
 
   async create(createOrdenServicioDto: CreateOrdenServicioDto) {
-    const nuevaOrdenServicio = this.ordenServicioRepository.save(createOrdenServicioDto);
-    if (nuevaOrdenServicio!=null) {
-    return await nuevaOrdenServicio;
-  }else{
-    return response.status(404).json({message:"No se pudo crear la orden de servicio"});
+    try {
+      const nuevaOrdenServicio = await this.ordenServicioRepository.save(createOrdenServicioDto);
+      return nuevaOrdenServicio;
+    } catch (error) {
+      console.error('Error al crear la orden de servicio:', error);
+      throw new InternalServerErrorException('No se pudo crear la orden de servicio');
+    }
   }
+
+
+  async ordenes_activas() {
+    return await this.ordenServicioRepository.find({where: {estado:"activa"}});
+  }
+
+  async existe(id: number) {
+    return await this.ordenServicioRepository.exists({where: {id_orden_servicio:id}});
   }
 
   findAll() {
     return `This action returns all ordenServicio`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} ordenServicio`;
+  async findOne(id: number) {
+    const busqueda_orde_de_servicio = this.ordenServicioRepository.findOne({where: {id_orden_servicio:id},
+      select: ["id_orden_servicio","nombre_Cliente", "presupuesto", "anticipo", "monto_total"
+      ]});
+
+      if (busqueda_orde_de_servicio != null){
+        return await busqueda_orde_de_servicio
+      }
+
+      return busqueda_orde_de_servicio
+      
   }
 
-  update(id: number, updateOrdenServicioDto: UpdateOrdenServicioDto) {
-    return `This action updates a #${id} ordenServicio`;
+  async update(updateOrdenServicioDto: UpdateOrdenServicioDto) {
+    const { id_orden_servicio, ...updateData } = updateOrdenServicioDto;
+    await this.ordenServicioRepository.update(
+      { id_orden_servicio },
+      updateData,
+    );
+    return this.ordenServicioRepository.findOne({ where: { id_orden_servicio } });
   }
 
   remove(id: number) {

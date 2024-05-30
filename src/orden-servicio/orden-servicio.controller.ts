@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Put} from '@nestjs/common';
 import { OrdenServicioService } from './orden-servicio.service';
 import { CreateOrdenServicioDto } from './dto/create-orden-servicio.dto';
 import { UpdateOrdenServicioDto } from './dto/update-orden-servicio.dto';
@@ -17,19 +17,24 @@ export class OrdenServicioController {
     return await this.ordenServicioService.create(createOrdenServicioDto);
   }
 
-  @Get()
-  findAll() {
-    return this.ordenServicioService.findAll();
+  @Get('existe/:id')
+  async existe(@Param('id') id: number) {
+    return await this.ordenServicioService.existe(id);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.ordenServicioService.findOne(+id);
+  async findOne(@Param('id') id: number) {
+    return await this.ordenServicioService.findOne(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateOrdenServicioDto: UpdateOrdenServicioDto) {
-    return this.ordenServicioService.update(+id, updateOrdenServicioDto);
+  @Get()
+  async ordenes_activas(){
+    return await this.ordenServicioService.ordenes_activas()
+  }
+
+  @Put()
+  async update( @Body() updateOrdenServicioDto: UpdateOrdenServicioDto) {
+    return await this.ordenServicioService.update(updateOrdenServicioDto);
   }
 
   @Delete(':id')

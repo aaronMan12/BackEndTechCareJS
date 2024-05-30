@@ -18,5 +18,8 @@ export class CreateOrdenServicioDto {
     nombre_Cliente: string;
 
     @IsString() @IsNotEmpty()
+    estado: string;
+    
+    @IsString() @IsNotEmpty()
     id_equipo: string;
 }

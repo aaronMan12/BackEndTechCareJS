@@ -8,28 +8,41 @@ import { Equipo } from 'src/equipo/entities/equipo.entity';// Ajusta la ruta de 
 export class OrdenServicio {
 
     @PrimaryGeneratedColumn()
-    id_orden_servicio: number;
+    id_orden_servicio: number
 
     @Column({ nullable: false })
-    fecha_de_ingreso: Date;
+    fecha_de_ingreso: Date
 
     @Column({ length: 200, nullable: false })
-    presupuesto: string;
+    presupuesto: string
 
     @Column({ nullable: false })
-    monto_total: number;
+    monto_total: number
 
     @Column({ nullable: false })
-    anticipo: number;
+    anticipo: number
 
     @Column({ length: 50, nullable: false })
-    nombre_Cliente: string;
+    nombre_Cliente: string
+
+    @Column({length: 100, nullable: true})
+    acciones_realizadas: String
+
+    @Column({length: 100, nullable: true})
+    recomendaciones: String
+
+    @Column({length: 100, nullable: true})
+    observaciones: String
+
+    @Column({type: 'enum', enum: 
+            ['activa', 'finalizada'], nullable: false})
+    estado: string
 
     @Column()
     id_equipo: string;
 
     @OneToOne(() => Equipo)
     @JoinColumn({ name: 'id_equipo' })
-    equipo: Equipo;
+    equipo: Equipo
     
 }
