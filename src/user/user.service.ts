@@ -30,7 +30,8 @@ export class UserService {
 
   async loging(userObjectLoging: logingAuthDto) {
     const { nombre, contrasena} = userObjectLoging;
-    const findUser = await this.userRepository.findOne({where: {nombre: nombre, contrasena: contrasena}});
+    const findUser = await this.userRepository.findOne({where: {nombre: nombre, contrasena: contrasena},
+    select:["nombre","roll"]});
     if (!findUser) throw new HttpException('USER_NOT_FOUT', 404);
 
     const payload = {id_user: findUser.id_user, nombre: findUser.nombre}
