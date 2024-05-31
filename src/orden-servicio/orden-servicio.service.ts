@@ -28,7 +28,8 @@ export class OrdenServicioService {
 
 
   async ordenes_activas() {
-    return await this.ordenServicioRepository.find({where: {estado:"activa"}});
+    return await this.ordenServicioRepository.find({where: {estado:"activa"},
+    select: ["id_orden_servicio","nombre_Cliente", "fecha_de_ingreso", "presupuesto"]});
   }
 
   async existe(id: number) {
